@@ -20,6 +20,7 @@ import {
   ChevronDown 
 } from "lucide-react";
 import { MOCK_FAQS, MOCK_TESTIMONIALS } from "../data/mockData";
+import docProfile from "../assets/dr_pulkit_agarwal.jpg"
 
 export const Home: React.FC = () => {
   const { navigateTo, topics } = useApp();
@@ -176,7 +177,7 @@ export const Home: React.FC = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-blue-600 rounded-[28px] rotate-2 scale-[0.98] opacity-10"></div>
                 <img 
-                  src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=600" 
+                  src={docProfile}
                   alt="Dr. Pulkit Agarwal" 
                   className="w-full max-w-xs rounded-[28px] object-cover shadow-lg border-4 border-white relative z-10"
                 />
