@@ -1,0 +1,6 @@
+{
+  "name": "Dr. Pulkit Agarwal ENT Learning Platform",
+  "description": "A premium medical education SaaS platform for learning ENT, created by Dr. Pulkit Agarwal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
