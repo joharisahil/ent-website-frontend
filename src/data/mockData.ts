@@ -4,6 +4,7 @@
  */
 
 import { Subject, Section, Chapter, Topic, UserRole, UserStatus, AuthProvider, MembershipStatus, Theme } from "../types";
+import pulkitProfilePicture from "../assets/dr_pulkit_agarwal_about.jpg"
 
 export const MOCK_SUBJECTS: Subject[] = [
   {
@@ -436,7 +437,7 @@ export const DEMO_USERS = {
     id: "user-member",
     fullName: "Dr. Sarah Jenkins",
     email: "member@entplatform.com",
-    avatar: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=150",
+    avatar: pulkitProfilePicture,
     role: UserRole.MEMBER,
     status: UserStatus.ACTIVE,
     provider: AuthProvider.EMAIL,
@@ -458,7 +459,7 @@ export const DEMO_USERS = {
     id: "user-admin",
     fullName: "Dr. Pulkit Agarwal",
     email: "pulkit.ent@gmail.com",
-    avatar: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=150",
+    avatar: pulkitProfilePicture,
     role: UserRole.SUPER_ADMIN,
     status: UserStatus.ACTIVE,
     provider: AuthProvider.GOOGLE,
