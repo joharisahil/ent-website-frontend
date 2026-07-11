@@ -87,7 +87,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div className="space-y-0.5">
                   <h4 className="font-display font-extrabold text-slate-900 text-xs sm:text-sm">Direct Email</h4>
-                  <p className="text-xs text-slate-500">contact@drpulkitent.com</p>
+                  <p className="text-xs text-slate-500">drpulkitagarwal@gmail.com</p>
                   <p className="text-[10px] text-blue-600 font-bold mt-1">Checked daily by Dr. Pulkit</p>
                 </div>
               </div>
@@ -98,7 +98,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div className="space-y-0.5">
                   <h4 className="font-display font-extrabold text-slate-900 text-xs sm:text-sm">Telephone Hotline</h4>
-                  <p className="text-xs text-slate-500">+91 98100 54321</p>
+                  <p className="text-xs text-slate-500">+91 7500692860</p>
                   <p className="text-[10px] text-slate-400 mt-1">Mon–Fri, 9:00 AM – 5:00 PM IST</p>
                 </div>
               </div>
@@ -109,7 +109,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div className="space-y-0.5">
                   <h4 className="font-display font-extrabold text-slate-900 text-xs sm:text-sm">Clinical Office Location</h4>
-                  <p className="text-xs text-slate-500">Surgical Otology Wing, Phase II, New Delhi, India</p>
+                  <p className="text-xs text-slate-500">41, Civil Lines, Near Bareilly College Gate, Kali Bari Road, Bareilly, UP, IN 243005</p>
                 </div>
               </div>
 
