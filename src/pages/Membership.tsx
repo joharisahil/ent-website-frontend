@@ -15,8 +15,12 @@ import {
   Sparkles, 
   ArrowRight, 
   CheckCircle2, 
-  Lock 
+  Lock,
+  Star,
+  Zap,
+  Info
 } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
 export const Membership: React.FC = () => {
   const { currentUser, setCurrentUser, showToast, navigateTo } = useApp();
@@ -61,236 +65,390 @@ export const Membership: React.FC = () => {
   };
 
   return (
-    <div className="font-sans text-slate-600 bg-slate-50/60 min-h-screen pb-16">
-      
-      {/* Title */}
-      <section className="py-8 text-center">
-        <div className="max-w-4xl mx-auto px-4">
-          <span className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 uppercase">
-            MEMBERSHIP ACCESS
-          </span>
-          <h1 className="font-display font-extrabold text-slate-900 text-2xl sm:text-4xl mt-3 tracking-tight">
-            Unlock Unlimited High-Yield ENT Learning
-          </h1>
-          <p className="text-slate-400 text-xs sm:text-sm mt-2 max-w-xl mx-auto leading-relaxed">
-            Gain full permission to download medical PDFs, access clinical summaries, review surgical case files, and consult our AI Interactive Tutor.
-          </p>
+    <div className="font-sans text-slate-600 bg-gradient-to-b from-slate-50 via-white to-slate-50 min-h-screen pb-24 relative overflow-hidden">
+      {/* Decorative Grid and Ambient Glows */}
+      <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+        <div className="absolute top-1/4 left-1/10 w-[500px] h-[500px] bg-blue-100/30 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 right-1/10 w-[400px] h-[400px] bg-indigo-100/20 rounded-full blur-[100px]" />
+      </div>
+
+      {/* Header Section */}
+      <section className="relative pt-16 pb-12 sm:pt-20 sm:pb-16 text-center">
+        <div className="max-w-4xl mx-auto px-4 space-y-4">
+          <motion.span 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-blue-50 text-blue-700 border border-blue-100/70 shadow-sm uppercase tracking-wider"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+            <span>Membership Access</span>
+          </motion.span>
+          
+          <motion.h1 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="font-display font-extrabold text-slate-900 text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.1]"
+          >
+            Unlock Unlimited{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600">
+              High-Yield ENT
+            </span>{" "}
+            Learning
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-slate-500 text-sm sm:text-base md:text-lg mt-4 max-w-2xl mx-auto leading-relaxed"
+          >
+            Gain immediate full access to download medical PDFs, interactive clinical summaries, surgical walkthroughs, and consult our advanced AI Interactive Tutor.
+          </motion.p>
         </div>
       </section>
 
-      {/* Main Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Active plan ribbon if member */}
+      {/* Active Membership Status Notification */}
+      <div className="max-w-4xl mx-auto px-4">
         {currentUser?.membership && (
-          <div className="mb-8 max-w-lg mx-auto bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-4.5 rounded-[24px] shadow flex items-center justify-between text-xs font-semibold">
-            <div className="flex items-center gap-2.5">
-              <CheckCircle2 className="w-5 h-5 text-emerald-100" />
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white p-5 rounded-3xl shadow-xl shadow-emerald-500/10 flex flex-col sm:flex-row gap-4 items-center justify-between text-xs sm:text-sm font-semibold border border-emerald-400/20"
+          >
+            <div className="flex items-center gap-3.5">
+              <div className="bg-white/20 p-2 rounded-2xl">
+                <CheckCircle2 className="w-6 h-6 text-emerald-100" />
+              </div>
               <div>
-                <span>Active Plan: {currentUser.membership.planName}</span>
-                <p className="text-[10px] text-emerald-100 font-normal mt-0.5">Renewal date: {new Date(currentUser.membership.expiresAt).toLocaleDateString()}</p>
+                <span className="text-sm font-bold block sm:inline">Active Plan: {currentUser.membership.planName}</span>
+                <p className="text-[11px] text-emerald-100 font-medium mt-0.5 sm:mt-0">
+                  Renewal date: {new Date(currentUser.membership.expiresAt).toLocaleDateString()}
+                </p>
               </div>
             </div>
             <button 
               onClick={() => navigateTo("dashboard/member")}
-              className="bg-white text-emerald-700 hover:bg-slate-50 py-1.5 px-3.5 rounded-full text-[10px] font-bold cursor-pointer transition-colors"
+              className="w-full sm:w-auto bg-white text-emerald-700 hover:bg-emerald-50 active:scale-95 py-3 px-6 rounded-2xl text-xs font-bold cursor-pointer transition-all shadow-md"
             >
-              My Dashboard
+              Go to My Dashboard
             </button>
-          </div>
+          </motion.div>
         )}
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto items-stretch">
-          {MOCK_PRICING_PLANS.map((plan) => (
-            <div 
-              key={plan.id}
-              className={`border rounded-[32px] p-8 flex flex-col justify-between transition-all relative ${plan.popular ? "border-blue-500 ring-4 ring-blue-50 bg-white shadow-md" : "border-slate-200/80 shadow-sm bg-white hover:shadow-md"}`}
-            >
-              {plan.popular && (
-                <span className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white font-bold text-[10px] px-3.5 py-1.5 rounded-full border border-blue-500 uppercase tracking-wider shadow">
-                  Most Popular
-                </span>
-              )}
+      {/* Pricing Cards Grid */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+          {MOCK_PRICING_PLANS.map((plan, index) => {
+            const isElite = plan.popular;
+            return (
+              <motion.div 
+                key={plan.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 + index * 0.1 }}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className={`relative rounded-[32px] p-8 flex flex-col justify-between transition-all border ${
+                  isElite 
+                    ? "bg-slate-900 text-white border-slate-800 shadow-2xl shadow-indigo-950/20" 
+                    : "bg-white text-slate-600 border-slate-150 shadow-xl shadow-slate-100/50 hover:shadow-2xl hover:shadow-sky-100/30"
+                }`}
+              >
+                {/* Popular / Elite Badge */}
+                {isElite && (
+                  <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 z-20">
+                    <span className="inline-flex items-center gap-1 bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 text-white font-extrabold text-[10px] px-4.5 py-1.5 rounded-full border border-blue-500 uppercase tracking-widest shadow-lg shadow-blue-500/25">
+                      <Zap className="w-3 h-3 fill-white text-white animate-pulse" />
+                      <span>Most Popular</span>
+                    </span>
+                  </div>
+                )}
 
-              <div>
-                <h3 className="font-display font-extrabold text-slate-900 text-lg sm:text-xl">{plan.name}</h3>
-                <p className="text-slate-400 text-xs mt-1.5 min-h-[36px]">{plan.description}</p>
-                
-                <div className="my-6">
-                  <span className="font-display font-extrabold text-slate-950 text-3xl sm:text-4xl">{plan.price}</span>
-                  <span className="text-slate-400 text-xs font-semibold ml-1">/{plan.billing}</span>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <h3 className={`font-display font-extrabold text-xl sm:text-2xl ${isElite ? "text-white" : "text-slate-900"}`}>
+                      {plan.name}
+                    </h3>
+                    {isElite && (
+                      <span className="bg-indigo-500/10 text-indigo-400 text-[10px] font-extrabold px-3 py-1 rounded-full border border-indigo-500/20">
+                        BEST VALUE
+                      </span>
+                    )}
+                  </div>
+                  
+                  <p className={`text-xs mt-3 min-h-[36px] leading-relaxed ${isElite ? "text-slate-400" : "text-slate-500"}`}>
+                    {plan.description}
+                  </p>
+                  
+                  {/* Pricing Display */}
+                  <div className="my-8 flex items-baseline gap-1.5">
+                    <span className={`font-display font-extrabold text-3xl sm:text-5xl ${isElite ? "text-white" : "text-slate-900"}`}>
+                      {plan.price}
+                    </span>
+                    <span className={`text-xs font-semibold ${isElite ? "text-slate-400" : "text-slate-400"}`}>
+                      / {plan.billing}
+                    </span>
+                  </div>
+
+                  {/* Feature Checklist */}
+                  <div className={`space-y-4 pt-6 border-t ${isElite ? "border-slate-800" : "border-slate-100"}`}>
+                    <p className={`text-[10px] font-bold uppercase tracking-widest ${isElite ? "text-slate-500" : "text-slate-400"}`}>
+                      Included capabilities
+                    </p>
+                    <ul className="space-y-4 text-xs">
+                      {plan.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <div className={`p-0.5 rounded-full mt-0.5 ${isElite ? "bg-indigo-500/10 text-indigo-400" : "bg-emerald-50 text-emerald-600"}`}>
+                            <Check className="w-3.5 h-3.5 font-bold" />
+                          </div>
+                          <span className={`leading-normal ${isElite ? "text-slate-300" : "text-slate-600"}`}>
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
-                <ul className="space-y-3.5 text-xs">
-                  {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                      <span className="text-slate-600 leading-normal">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                {/* Call to Action Button */}
+                <div className={`pt-6 mt-10 border-t ${isElite ? "border-slate-800" : "border-slate-100"}`}>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleOpenCheckout(plan)}
+                    className={`w-full py-4 rounded-2xl font-bold text-xs transition-all cursor-pointer flex justify-center items-center gap-2 group ${
+                      isElite 
+                        ? "bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-700 hover:to-sky-600 text-white shadow-lg shadow-blue-500/10 hover:shadow-blue-500/25" 
+                        : "bg-slate-100 hover:bg-slate-250 text-slate-800"
+                    }`}
+                  >
+                    <span>{plan.ctaText}</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </motion.button>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
 
-              <div className="pt-6 mt-8 border-t border-slate-100">
-                <button
-                  onClick={() => handleOpenCheckout(plan)}
-                  className={`w-full py-3.5 rounded-2xl font-bold text-xs transition-all cursor-pointer active:scale-95 text-center flex justify-center items-center gap-1.5 ${plan.popular ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/10" : "bg-slate-100 hover:bg-slate-200 text-slate-800"}`}
-                >
-                  <span>{plan.ctaText}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
+        {/* Plan Comparison Matrix Section */}
+        <div className="mt-24 max-w-4xl mx-auto space-y-6">
+          <div className="text-center space-y-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-blue-50 text-blue-700 border border-blue-100/70">
+              <Info className="w-3.5 h-3.5" />
+              <span>Features comparison</span>
+            </span>
+            <h3 className="font-display font-extrabold text-slate-900 text-xl sm:text-2xl tracking-tight">
+              Detailed Plan Matrix
+            </h3>
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="border border-slate-150 rounded-3xl overflow-hidden shadow-xl shadow-slate-100/50 bg-white"
+          >
+            <div className="overflow-x-auto text-xs">
+              <table className="min-w-full divide-y divide-slate-150 text-left">
+                <thead>
+                  <tr className="bg-slate-50/70">
+                    <th className="px-6 py-4.5 font-bold text-slate-800">Capabilities</th>
+                    <th className="px-6 py-4.5 font-bold text-slate-800 text-center">Guest / Free</th>
+                    <th className="px-6 py-4.5 font-bold text-slate-800 text-center">Pro Plan</th>
+                    <th className="px-6 py-4.5 font-bold text-slate-800 text-center text-blue-600 bg-blue-50/30">Elite Plan</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr className="hover:bg-slate-50/30 transition-colors">
+                    <td className="px-6 py-4 font-semibold text-slate-900">Read Syllabus online</td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Yes</span>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Yes</span>
+                    </td>
+                    <td className="px-6 py-4 text-center bg-blue-50/10">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Yes</span>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50/30 transition-colors">
+                    <td className="px-6 py-4 font-semibold text-slate-900">Interactive AI Tutor Assistant</td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Yes</span>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Yes</span>
+                    </td>
+                    <td className="px-6 py-4 text-center bg-blue-50/10">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Yes</span>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50/30 transition-colors">
+                    <td className="px-6 py-4 font-semibold text-slate-900">Download High-Yield PDF Notes</td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-400">No</span>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="font-semibold text-slate-700 bg-sky-50 px-2.5 py-1 rounded-lg border border-sky-100">15 / month</span>
+                    </td>
+                    <td className="px-6 py-4 text-center bg-blue-50/10">
+                      <span className="font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100">Unlimited</span>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50/30 transition-colors">
+                    <td className="px-6 py-4 font-semibold text-slate-900">Ad-Free Learning Experience</td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="text-slate-400 font-medium">With Ads</span>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Yes</span>
+                    </td>
+                    <td className="px-6 py-4 text-center bg-blue-50/10">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Yes</span>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50/30 transition-colors">
+                    <td className="px-6 py-4 font-semibold text-slate-900">Direct Email Q&A with Dr. Pulkit</td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-400">No</span>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-400">No</span>
+                    </td>
+                    <td className="px-6 py-4 text-center bg-blue-50/10">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">Yes</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          ))}
+          </motion.div>
         </div>
-
-        {/* Plan Comparison Matrix - Bento Box */}
-        <div className="mt-16 max-w-4xl mx-auto border border-slate-200/80 rounded-[32px] overflow-hidden shadow-sm bg-white hover:shadow-md transition-all">
-          <div className="bg-slate-50/50 p-5 border-b border-slate-250 text-center">
-            <h3 className="font-display font-bold text-slate-950 text-sm sm:text-base">Compare Access Matrix</h3>
-          </div>
-          <div className="overflow-x-auto text-xs">
-            <table className="min-w-full divide-y divide-slate-200 text-left">
-              <thead>
-                <tr className="bg-slate-50/30">
-                  <th className="px-6 py-4 font-semibold text-slate-700">Capabilities</th>
-                  <th className="px-6 py-4 font-semibold text-slate-700 text-center">Guest / Free</th>
-                  <th className="px-6 py-4 font-semibold text-slate-700 text-center">Pro Plan</th>
-                  <th className="px-6 py-4 font-semibold text-slate-700 text-center">Elite Plan</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                <tr>
-                  <td className="px-6 py-4 font-medium text-slate-900">Read Syllabus online</td>
-                  <td className="px-6 py-4 text-center text-emerald-500 font-bold">Yes</td>
-                  <td className="px-6 py-4 text-center text-emerald-500 font-bold">Yes</td>
-                  <td className="px-6 py-4 text-center text-emerald-500 font-bold">Yes</td>
-                </tr>
-                <tr className="bg-slate-50/10">
-                  <td className="px-6 py-4 font-medium text-slate-900">Interactive AI Tutor Assistant</td>
-                  <td className="px-6 py-4 text-center text-emerald-500 font-bold">Yes</td>
-                  <td className="px-6 py-4 text-center text-emerald-500 font-bold">Yes</td>
-                  <td className="px-6 py-4 text-center text-emerald-500 font-bold">Yes</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 font-medium text-slate-900">Download High-Yield PDF Notes</td>
-                  <td className="px-6 py-4 text-center text-slate-300">No</td>
-                  <td className="px-6 py-4 text-center text-slate-700 font-semibold">15 per month</td>
-                  <td className="px-6 py-4 text-center text-emerald-600 font-bold">Unlimited</td>
-                </tr>
-                <tr className="bg-slate-50/10">
-                  <td className="px-6 py-4 font-medium text-slate-900">Ad-Free Learning Experience</td>
-                  <td className="px-6 py-4 text-center text-slate-300">With Ads</td>
-                  <td className="px-6 py-4 text-center text-emerald-500 font-bold">Yes</td>
-                  <td className="px-6 py-4 text-center text-emerald-500 font-bold">Yes</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 font-medium text-slate-900">Direct Email Q&A with Dr. Pulkit</td>
-                  <td className="px-6 py-4 text-center text-slate-300">No</td>
-                  <td className="px-6 py-4 text-center text-slate-300">No</td>
-                  <td className="px-6 py-4 text-center text-emerald-500 font-bold">Yes</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
       </section>
 
-      {/* Checkout Modal Overlay */}
-      {checkoutPlan && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-150">
-          <div className="bg-white border border-slate-200 rounded-[32px] max-w-md w-full overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
-            {/* Modal Header */}
-            <div className="bg-slate-950 text-white p-5 flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <CreditCard className="w-5 h-5 text-blue-500" />
-                <h4 className="font-display font-bold text-sm">Secure Payment Gateway</h4>
-              </div>
-              <button 
-                onClick={() => setCheckoutPlan(null)}
-                className="text-white/75 hover:text-white hover:bg-white/10 p-1.5 rounded-full cursor-pointer transition-colors"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Modal Body */}
-            <form onSubmit={handleCompletePayment} className="p-6 space-y-4 text-slate-700">
-              <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl text-xs space-y-1">
-                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Plan Selected:</span>
-                <div className="flex justify-between items-center font-bold text-slate-900 text-sm">
-                  <span>{checkoutPlan.name}</span>
-                  <span className="text-blue-600">{checkoutPlan.price}</span>
-                </div>
-                <p className="text-[10px] text-slate-500">{checkoutPlan.description}</p>
-              </div>
-
-              {/* Mock Credit Card form */}
-              <div className="space-y-3 font-sans text-xs">
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-500 block">Card Number</label>
-                  <input 
-                    type="text" 
-                    required
-                    value={cardDetails.number}
-                    onChange={(e) => setCardDetails({ ...cardDetails, number: e.target.value })}
-                    className="w-full bg-slate-50 hover:bg-slate-100/50 focus:bg-white text-slate-900 font-mono px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-slate-500 block">Expiry Date</label>
-                    <input 
-                      type="text" 
-                      required
-                      placeholder="MM/YY"
-                      value={cardDetails.expiry}
-                      onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
-                      className="w-full bg-slate-50 hover:bg-slate-100/50 focus:bg-white text-slate-900 font-mono px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all text-center"
-                    />
+      {/* Checkout Modal Overlay - Completely Redesigned Payment Screen */}
+      <AnimatePresence>
+        {checkoutPlan && (
+          <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md flex items-center justify-center z-50 p-4">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-white border border-slate-150 rounded-[32px] max-w-md w-full overflow-hidden shadow-2xl relative"
+            >
+              {/* Modal Header */}
+              <div className="bg-slate-900 text-white p-6 flex justify-between items-center relative">
+                <div className="flex items-center gap-3">
+                  <div className="bg-blue-500/10 p-2 rounded-xl text-blue-400 border border-blue-500/20">
+                    <CreditCard className="w-5 h-5" />
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-slate-500 block">CVC Security Code</label>
-                    <input 
-                      type="password" 
-                      required
-                      maxLength={3}
-                      value={cardDetails.cvc}
-                      onChange={(e) => setCardDetails({ ...cardDetails, cvc: e.target.value })}
-                      className="w-full bg-slate-50 hover:bg-slate-100/50 focus:bg-white text-slate-900 font-mono px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all text-center"
-                    />
+                  <div>
+                    <h4 className="font-display font-bold text-sm sm:text-base text-white">Checkout Gateway</h4>
+                    <p className="text-[10px] text-slate-400 font-medium">PCI-DSS 256-bit Secure Layer</p>
                   </div>
                 </div>
-              </div>
-
-              <div className="text-[10px] text-slate-400 flex items-center gap-1.5 py-1">
-                <Lock className="w-3.5 h-3.5 text-emerald-500" />
-                <span>PCI-DSS compliant 256-bit secure gateway transfer.</span>
-              </div>
-
-              {/* Actions */}
-              <div className="grid grid-cols-2 gap-3 pt-2">
                 <button 
-                  type="button"
                   onClick={() => setCheckoutPlan(null)}
-                  className="bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-xl text-xs font-semibold cursor-pointer transition-colors"
+                  className="text-slate-400 hover:text-white hover:bg-slate-800 p-2 rounded-full cursor-pointer transition-colors"
                 >
-                  Cancel
-                </button>
-                <button 
-                  type="submit"
-                  disabled={processing}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:opacity-35 text-white py-3 rounded-xl text-xs font-bold transition-all shadow shadow-blue-500/10 flex justify-center items-center cursor-pointer"
-                >
-                  {processing ? <span>Processing...</span> : <span>Complete Purchase</span>}
+                  ✕
                 </button>
               </div>
-            </form>
+
+              {/* Modal Body */}
+              <form onSubmit={handleCompletePayment} className="p-6 space-y-6 text-slate-700">
+                {/* Plan Selection Summary Panel */}
+                <div className="bg-gradient-to-br from-blue-50/50 to-indigo-50/50 border border-blue-100/60 p-4 rounded-2xl text-xs space-y-1">
+                  <span className="text-[10px] text-blue-600 font-extrabold uppercase tracking-wider">Plan Selected</span>
+                  <div className="flex justify-between items-center font-bold text-slate-900 text-base">
+                    <span>{checkoutPlan.name}</span>
+                    <span className="text-blue-600 font-extrabold">{checkoutPlan.price}</span>
+                  </div>
+                  <p className="text-[10px] text-slate-500 mt-1">{checkoutPlan.description}</p>
+                </div>
+
+                {/* Credit Card Details Inputs */}
+                <div className="space-y-4 font-sans text-xs">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Card Number</label>
+                    <div className="relative">
+                      <input 
+                        type="text" 
+                        required
+                        value={cardDetails.number}
+                        onChange={(e) => setCardDetails({ ...cardDetails, number: e.target.value })}
+                        className="w-full bg-slate-50 hover:bg-slate-100/60 focus:bg-white text-slate-900 font-mono pl-10 pr-3.5 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all shadow-sm"
+                      />
+                      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                        <CreditCard className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Expiry Date</label>
+                      <input 
+                        type="text" 
+                        required
+                        placeholder="MM/YY"
+                        value={cardDetails.expiry}
+                        onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
+                        className="w-full bg-slate-50 hover:bg-slate-100/60 focus:bg-white text-slate-900 font-mono px-3.5 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all text-center shadow-sm"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">CVC Security Code</label>
+                      <input 
+                        type="password" 
+                        required
+                        maxLength={3}
+                        value={cardDetails.cvc}
+                        onChange={(e) => setCardDetails({ ...cardDetails, cvc: e.target.value })}
+                        className="w-full bg-slate-50 hover:bg-slate-100/60 focus:bg-white text-slate-900 font-mono px-3.5 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all text-center shadow-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-[10px] text-slate-400 flex items-center gap-1.5 py-1 border-t border-slate-100 pt-4">
+                  <Lock className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                  <span>Secure 256-bit SSL transaction verified by our banking merchant.</span>
+                </div>
+
+                {/* Form Buttons */}
+                <div className="grid grid-cols-2 gap-3 pt-2">
+                  <button 
+                    type="button"
+                    onClick={() => setCheckoutPlan(null)}
+                    className="bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 py-3 rounded-xl text-xs font-semibold cursor-pointer transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit"
+                    disabled={processing}
+                    className="bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-700 hover:to-sky-600 disabled:opacity-35 text-white py-3 rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-500/10 flex justify-center items-center cursor-pointer active:scale-95"
+                  >
+                    {processing ? (
+                      <span className="flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 bg-white rounded-full animate-bounce"></span>
+                        <span className="w-1.5 h-1.5 bg-white rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                        <span className="w-1.5 h-1.5 bg-white rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                      </span>
+                    ) : (
+                      <span>Complete Purchase</span>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
     </div>
   );

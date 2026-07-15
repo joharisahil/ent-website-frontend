@@ -90,8 +90,23 @@ export default function App() {
       {/* Global Clinical Header */}
       <Navbar />
 
-      {/* Primary Dynamic Content Frame */}
-      <main className="flex-grow pt-[64px]">
+      {/* 
+        ROOT CAUSE OF THE BLANK WHITE SPACE:
+        The <Navbar /> component is structured as a `sticky top-0` header. Sticky elements in CSS 
+        reside in the normal document flow on load, meaning the browser automatically places the 
+        subsequent <main> container directly beneath the navbar without any overlapping.
+        
+        The previous implementation of the <main> container had an explicit `pt-[64px]` padding-top offset.
+        Since the sticky header already reserved its own height in the document flow (including the 
+        dynamic-height demo switcher ribbon), this `pt-[64px]` created a redundant 64px vertical gap 
+        that translated to an unwanted blank white space on initial load.
+        
+        SOLUTION:
+        By removing `pt-[64px]` from <main>, the layout flow is restored to its natural, pristine state. 
+        All pages and sections (including the Home Hero) start immediately and beautifully below the 
+        sticky navigation bar with consistent spacing, without requiring any negative margin hacks or custom CSS.
+      */}
+      <main className="flex-grow">
         {renderCurrentPage()}
       </main>
 

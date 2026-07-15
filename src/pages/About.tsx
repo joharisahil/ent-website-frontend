@@ -6,7 +6,6 @@
 import React from "react";
 import { useApp } from "../context/AppContext";
 import { Award, BookOpen, Stethoscope, Compass, Heart, GraduationCap, ArrowRight } from "lucide-react";
-import docProfile from "../assets/dr_pulkit_agarwal_about.jpg"
 
 export const About: React.FC = () => {
   const { navigateTo } = useApp();
@@ -65,7 +64,7 @@ export const About: React.FC = () => {
           {/* Visual Showcase (Right Card) */}
           <div className="lg:col-span-5 bg-white border border-slate-200/80 rounded-[32px] p-4 shadow-sm flex items-center justify-center relative overflow-hidden group">
             <img 
-              src={docProfile}
+              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=600" 
               alt="Medical Consultation" 
               className="rounded-[24px] w-full h-full min-h-[300px] object-cover border border-slate-100 group-hover:scale-102 transition-transform duration-500"
             />

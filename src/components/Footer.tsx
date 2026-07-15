@@ -39,15 +39,11 @@ export const Footer: React.FC = () => {
             <div className="pt-2 text-xs flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-blue-400" />
-                <span className="text-slate-300">drpulkitagarwal@gmail.com</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-blue-400" />
-                <span className="text-slate-300">omshaantihospital@gmail.com</span>
+                <span className="text-slate-300">contact@drpulkitent.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-blue-400" />
-                <span className="text-slate-300">+91 7500692860</span>
+                <span className="text-slate-300">+91 98100 54321</span>
               </div>
             </div>
           </div>
