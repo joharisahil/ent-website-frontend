@@ -34,6 +34,7 @@ import {
 import { MOCK_FAQS, MOCK_TESTIMONIALS } from "../data/mockData";
 import { motion } from "motion/react";
 import { WelcomeModal } from "../components/WelcomeModal";
+import docProfile from "../assets/dr_pulkit_agarwal.jpg"
 
 export const Home: React.FC = () => {
   const { navigateTo, topics, currentUser } = useApp();
@@ -393,7 +394,7 @@ export const Home: React.FC = () => {
             <div className="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 shadow-[0_2px_12px_rgba(0,0,0,0.01)]">
               <div className="relative aspect-[4/3] sm:aspect-square w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-150">
                 <img 
-                  src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=600" 
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT18KY37jB0KBv-lqlQzXYr2IyDxkBR4LpYDybVdng_EQkbP2XLSgy23g&s=10" 
                   alt="Dr. Pulkit Agarwal" 
                   className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-500"
                 />
